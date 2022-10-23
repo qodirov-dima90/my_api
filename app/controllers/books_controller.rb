@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
+    @books = @user.books.all
   end
 
   render json: @book
@@ -26,7 +26,7 @@ end
 
   # POST /books or /books.json
   def create
-    @book = Book.new(book_params)
+    @book = Book.new(book_params.merge(user: @user))
 
     respond_to do |format|
       if @book.save
@@ -65,11 +65,11 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
-      @book = Book.find(params[:id])
+      @book = @user.books.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:title, :user_id)
+      params.require(:book).permit(:title)
     end
 end
