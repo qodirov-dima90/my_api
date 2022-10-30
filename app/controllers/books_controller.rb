@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-      @books = @user.books.all
+      @books = Book.all
 
       render json: @books
   end
@@ -16,7 +16,7 @@ class BooksController < ApplicationController
 
   # POST /books 
   def create
-    @book = Book.new(book_params.merge(user: @user))
+    @book = Book.create(book_params)
 
       if @book.save
       
@@ -46,7 +46,7 @@ class BooksController < ApplicationController
   private
  
     def set_book
-      @book = @user.books.find(params[:id])
+      @book = Book.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
