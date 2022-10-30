@@ -7,8 +7,8 @@ class UsersController < ApplicationController
             render json: { user: @user, token: token}, status: :ok
         else
             render json: { error: 'Invalid username or password' }, status: :unprocessable_entity
+        end
     end
-end
     def login 
         @user = User.find_by(username: user_params[:username])
 
